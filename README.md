@@ -5,7 +5,7 @@ In the client side, i used react which i learned a lot of react things such as r
 
 <br>
 
-![2023-08-22 23-02-52](https://github.com/ismarapw/nongschat-app/assets/76652264/aaa417b9-4c76-4ddd-ba76-cb9d42dc9050)
+![2023-08-22 23-02-52 (3)](https://github.com/ismarapw/nongschat-app/assets/76652264/323ce1da-1bd7-401d-83eb-e234ee72f310)
 
 
 # Detailed Tech Stack
