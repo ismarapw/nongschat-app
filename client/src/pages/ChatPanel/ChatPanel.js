@@ -15,7 +15,7 @@ function ChatPanel() {
     const isLoggedIn = isUserLogin();
     const [originalChatList, setOriginalChatList] = useState(null);
     const [chatList, setChatList] = useState(null);
-    const currUserId = JSON.parse(localStorage.getItem("userSession")).userId;
+    let [currUserId, setCurrUserId] = useState(null);
 
 
     useEffect(() => {
@@ -38,6 +38,7 @@ function ChatPanel() {
         if (!isLoggedIn) {
             navigate("/");
         }else {
+            setCurrUserId(JSON.parse(localStorage.getItem("userSession")).userId);
             fetchChatData();
             socketIo.on('receive_message', fetchChatData);
         }

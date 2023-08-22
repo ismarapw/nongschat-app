@@ -8,8 +8,9 @@ const socketIo = require('./socket');
 
 const app = express();
 const server = http.createServer(app);
+const ALLOWED_PORT = 'http://192.168.43.199:3000'
 
-const socket = new socketIo(server, 'http://192.168.43.199:3000');
+const socket = new socketIo(server, ALLOWED_PORT);
 const io = socket.getIO();
 
 server.listen(3001);
@@ -45,7 +46,7 @@ app.set('io', io);
 
 app.use(express.static("public"));
 
-app.use(cors({credentials : true, origin : "http://192.168.43.199:3000"}));
+app.use(cors({credentials : true, origin : ALLOWED_PORT}));
 
 app.use(express.urlencoded());
 

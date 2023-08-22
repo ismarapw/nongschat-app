@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client';
+import { API_BASE_URL } from './api';
 
-const socketInstance = io('http://192.168.43.199:3001');
+const socketInstance = io(API_BASE_URL);
 
 export default socketInstance;
