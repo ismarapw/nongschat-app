@@ -1,7 +1,7 @@
 # NongsChat Application
 Welcome to my first full stack javascript project repository. In this project i tried to make a realtime chat application which is utilized socket.io. I learn a lot of things when i'm trying to make this project, because this is my first project using full javascript technologies.
 
-In the client side, i used react which i learned a lot of react things such as reachHooks, props, routes, states and all of the basic behaviour of react. In the server side, i used node.js (express) to make the RestAPI. As mentioned before, in the server side (node js) i learned a lot as well, such as how to make a middleware, route and how to organize the Model View Controller (MVC) structure from scratch. 
+In the client side, i used react which i learned a lot of react things such as reactHooks, props, routes, states and all of the basic behaviour of react. In the server side, i used node.js (express) to make the RestAPI. As mentioned before, in the server side (node js) i learned a lot as well, such as how to make a middleware, route and how to organize the Model View Controller (MVC) structure from scratch. 
 
 <br>
 
@@ -80,7 +80,7 @@ if database config is configured correctly, then you can do the migration by usi
 npx sequelize-cli db:migrate
 ```
 
-after that, you can try to run the server and the client in server and client dir by using 
+after that, you can try to run this command in both server and client dir to test the app 
 ```bash
 npm run start
 ```
