@@ -161,7 +161,7 @@ function Conversation () {
             <div className="w-11/12 mx-auto mt-6 pb-44">
                 {chatMsg.map(chat => (
                     <div className={`my-4 flex ${chat.sender_id === currUserId ? 'justify-end' : 'justify-start'}`}>
-                        <p className={`max-w-[350px] ${chat.sender_id === currUserId ? 'bg-black text-white': 'bg-slate-50' }  inline-block p-2 rounded-xl text-sm`}>{chat.content}<span className='text-[11px] float-right mt-2 ml-3'>{moment.tz(chat.createdAt, "Asia/Makassar").format("HH:MM")}</span></p>
+                        <p className={`max-w-[350px] ${chat.sender_id === currUserId ? 'bg-black text-white': 'bg-slate-50' }  inline-block p-2 rounded-xl text-sm`}>{chat.content}<span className='text-[11px] float-right mt-2 ml-3'>{moment.tz(chat.createdAt, moment.tz.guess()).format("HH:mm")}</span></p>
                     </div>
                 ))}
             </div>

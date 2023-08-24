@@ -52,7 +52,7 @@ app.use(express.urlencoded());
 
 app.use(express.json());
 
-app.use(session({secret: 'secret_key'}));
+app.use(session({secret: 'secret_key', cookie: {maxAge: 30 * 24 * 60 * 60 * 1000}}));
 
 app.use('/user', userRoutes);
 

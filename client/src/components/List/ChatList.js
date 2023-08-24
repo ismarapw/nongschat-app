@@ -8,6 +8,12 @@ function ChatList ({chatList}) {
 
     return (
         <div className="chat-list">
+            {chatList && chatList.length === 0 && 
+            <div className='flex flex-col justify-center items-center mt-24'>
+                <img src='img/nochat.svg' className="w-2/3"/>
+                <span className='text-sm mt-3'>No Chat Yet</span>
+            </div>
+            }
             {chatList && chatList.map(chat => (
                 <NavLink to={`/conversation/${chat.other_user_id}`} className="py-4 flex w-full">
                     <div className="w-16">
@@ -16,7 +22,7 @@ function ChatList ({chatList}) {
                     <div className="ml-3 w-full">
                         <div className = "flex items-center justify-between">
                             <h4 className="font-semibold text-lg">{chat.username}</h4>
-                            <p className="text-sm">{moment.tz(chat.latest_time, 'Asia/Makassar').fromNow()}</p>
+                            <p className="text-sm">{moment.tz(chat.latest_time, moment.tz.guess()).fromNow()}</p>
                         </div>
                         <div className="flex items-center justify-between">
                             <p className="w-11/12 truncate text-sm">

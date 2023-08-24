@@ -1,9 +1,10 @@
 function selectChatList (userId) {
+    // if you are using postgresql use "createdAt" becasue postgresql auto convert column names to lowercase if you dont use double quotes
+    // if you are using mysql you don't need to do that, instead you will get syntax error.
     return (
         `SELECT 
         m.sender_id, 
         m.receiver_id, 
-        m.content, 
         m.content, 
         latest_msgs.latest_time, 
         latest_msgs.total_unread, 

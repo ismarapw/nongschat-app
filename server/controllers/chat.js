@@ -52,7 +52,10 @@ const getMsg = async (req, res) => {
                       sender_id: req.session.userId,
                     },
                 ],
-            }
+            },
+            order : [
+                ['createdAt', 'ASC'],
+            ]
         });
 
         // update message to read
