@@ -1,42 +1,19 @@
-import { API_BASE_URL } from "../../utils/api";
-import { NavLink } from 'react-router-dom';
-import moment from "moment-timezone";
+import Loader from "../Loader/Loading";
+import moment from 'moment-timezone';
 
-
-function ChatList ({chatList}) {
-    const currUserId = JSON.parse(localStorage.getItem("userSession")).userId;
+function ChatList ({chatList, currUserId}) {
 
     return (
-        <div className="chat-list">
-            {chatList && chatList.length === 0 && 
-            <div className='flex flex-col justify-center items-center mt-24'>
-                <img src='img/nochat.svg' className="w-2/3"/>
-                <span className='text-sm mt-3'>No Chat Yet</span>
-            </div>
+        <>
+            {!chatList && 
+                <Loader text = 'Loading Chat, Please Wait...' />
             }
             {chatList && chatList.map(chat => (
-                <NavLink to={`/conversation/${chat.other_user_id}`} className="py-4 flex w-full">
-                    <div className="w-16">
-                        <img src={`${API_BASE_URL}/img/${chat.image}`} className="rounded-full w-14 h-14 object-cover"/>
-                    </div>
-                    <div className="ml-3 w-full">
-                        <div className = "flex items-center justify-between">
-                            <h4 className="font-semibold text-lg">{chat.username}</h4>
-                            <p className="text-sm">{moment.tz(chat.latest_time, moment.tz.guess()).fromNow()}</p>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <p className="w-11/12 truncate text-sm">
-                                {chat.sender_id === currUserId ? `You : ${chat.content}` : `${chat.content}`}
-                            </p>
-                            {chat.receiver_id === currUserId && chat.total_unread > 0 &&
-                            <p className="bg-black text-white rounded-full w-5 h-5 text-xs flex justify-center items-center p-3">{chat.total_unread}</p>
-                            }
-                        </div>
-                    </div>
-                </NavLink>
-            ))} 
-        </div>
-        
+                <div className={`my-4 flex ${chat.sender_id === currUserId ? 'justify-end' : 'justify-start'}`}>
+                    <p className={`max-w-[350px] ${chat.sender_id === currUserId ? 'bg-black text-white': 'bg-slate-50' }  inline-block p-2 rounded-xl text-sm`}>{chat.content}<span className='text-[11px] float-right mt-2 ml-3'>{moment.tz(chat.createdAt, moment.tz.guess()).format("HH:mm")}</span></p>
+                </div>
+            ))}
+        </>
     )
 }
 

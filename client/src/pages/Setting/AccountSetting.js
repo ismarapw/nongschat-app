@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { API_BASE_URL } from "../../utils/api";
 import isUserLogin from "../../utils/check-auth";
 import { useNavigate } from "react-router-dom";
+import Loader from '../../components/Loader/Loading';
 
 
 async function updateData(toUpdate, data){
@@ -51,6 +52,8 @@ function AccountSetting () {
     });
     const isLoggedIn = isUserLogin();
     const navigate = useNavigate();
+
+    const [imgIsUploading, setImgIsUploading] = useState(false);
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -101,10 +104,14 @@ function AccountSetting () {
         }
       };
     
-      const handleUsername = (e) => handleUpdateField("username", e.target.value);
-      const handleEmail = (e) => handleUpdateField("email", e.target.value);
-      const handlePassword = (e) => handleUpdateField("password", e.target.value);
-      const handleImage = (e) => handleUpdateField("image", e.target.files[0]);
+    const handleUsername = (e) => handleUpdateField("username", e.target.value);
+    const handleEmail = (e) => handleUpdateField("email", e.target.value);
+    const handlePassword = (e) => handleUpdateField("password", e.target.value);
+    const handleImage = async (e) => {
+        setImgIsUploading(true);
+        await handleUpdateField("image", e.target.files[0]);
+        setImgIsUploading(false);
+    };
 
     return !isLoggedIn ? null : (
         <div className="bg-white max-w-md min-h-screen mx-auto drop-shadow-2xl">
@@ -122,41 +129,36 @@ function AccountSetting () {
                     </div>
                     <input onChange={handleImage} type='file' name='image' className="w-10 h-10 absolute bottom-0 right-1 opacity-0"/>
                 </div>
-                <>
+                {imgIsUploading && 
+                <Loader text = "Uploading Image..." isImageUpload={true}/>
+                }
                 {responseData.image && 
                 <p className={`mt-3 text-sm ${responseData.image.status === 201 ? 'text-green-500' :'text-red-500'}`}>{responseData.image.message}</p>
                 }
-                </>
             </div>
             <div className="mt-4 ml-5 relative">
                 <label for="username" className="block text-sm">Username</label>
                 <input onChange={handleUsername} name="username" id="username" type="text" value={userInfo.username} className="mt-2 px-2 py-2 w-[95%] border-2 border-slate-400 rounded-lg text-sm" placeholder="Input your username" />
                 <i class="ml-3 ri-pencil-line text-2xl absolute top-8 right-8"></i>
-                <>
                 {responseData.username && 
                 <p className={`mt-2 text-sm ${responseData.username.status === 201 ? 'text-green-500' :'text-red-500'}`}>{responseData.username.message}</p>
                 }
-                </>
             </div>
             <div className="mt-4 ml-5 relative">
                 <label for="email" className="block text-sm">Email</label>
                 <input onChange={handleEmail} name="email" id="email" type="text" value={userInfo.email} className="mt-2 px-2 py-2 w-[95%] border-2 border-slate-400 rounded-lg text-sm" placeholder="Input your email" />
                 <i class="ml-3 ri-pencil-line text-2xl absolute top-8 right-8"></i>
-                <>
                 {responseData.email && 
                 <p className={`mt-2 text-sm ${responseData.email.status === 201 ? 'text-green-500' :'text-red-500'}`}>{responseData.email.message}</p>
                 }
-                </>
             </div>
             <div className="mt-4 ml-5 relative">
                 <label for="password" className="block text-sm">Password</label>
                 <input onChange={handlePassword} name="password" id="password" value={userInfo.password} type="password" className="mt-2 px-2 py-2 w-[95%] border-2 border-slate-400 rounded-lg text-sm" placeholder="Unchanged Password" />
                 <i class="ml-3 ri-pencil-line text-2xl absolute top-8 right-8"></i>
-                <>
                 {responseData.password && 
                 <p className={`mt-2 text-sm ${responseData.password.status === 201 ? 'text-green-500' :'text-red-500'}`}>{responseData.password.message}</p>
                 }
-                </>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import 'remixicon/fonts/remixicon.css';
-import ChatList from '../../components/List/ChatList';
+import HistoryList from '../../components/List/HistoryList';
 import {useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import isUserLogin from "../../utils/check-auth";
@@ -13,8 +13,8 @@ function ChatPanel() {
     const [settingIsClicked, setSettingIsClicked] = useState(false);
     const navigate = useNavigate();
     const isLoggedIn = isUserLogin();
-    const [originalChatList, setOriginalChatList] = useState(null);
-    const [chatList, setChatList] = useState(null);
+    const [originalhistoryList, setOriginalhistoryList] = useState(null);
+    const [historyList, setHistoryList] = useState(null);
     let [currUserId, setCurrUserId] = useState(null);
 
 
@@ -27,8 +27,8 @@ function ChatPanel() {
                 });
 
                 const data = await response.json();
-                setChatList(data.result);
-                setOriginalChatList(data.result);
+                setHistoryList(data.result);
+                setOriginalhistoryList(data.result);
 
             } catch (error) {
                 console.log(error);
@@ -71,15 +71,15 @@ function ChatPanel() {
     const searchHandler = (e) => {
         const inputVal = e.target.value.trim()
         if (inputVal.length === 0){
-            setChatList(originalChatList);
+            setHistoryList(originalhistoryList);
         }
         else{
-            const searchRes = chatList.filter(chat => {
+            const searchRes = historyList.filter(chat => {
                 if (chat.content.includes(inputVal) || chat.username.includes(inputVal)) {
                     return chat;
                 }
             })
-            setChatList(searchRes);
+            setHistoryList(searchRes);
         }
     }
 
@@ -107,7 +107,7 @@ function ChatPanel() {
                 </div>
             </div>
             <div className="w-11/12 mx-auto mt-4">
-                <ChatList chatList={chatList} />
+                <HistoryList historyList= {historyList} currUserId={currUserId} />
             </div>
         </div>
     )
